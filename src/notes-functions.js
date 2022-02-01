@@ -1,5 +1,4 @@
 import moment from "moment";
-
 //get saved notes
 const getSavedNotes = () => {
   const notesJSON = localStorage.getItem("note");
@@ -68,9 +67,17 @@ const sortBy = (notes, sortBy) => {
       }
     });
   } else if (sortBy === "alphabetically") {
-    return notes.sort((a, b) => {
-      return a.title.localeCompare(b.title);
+    return notes.sort(function(a, b) {
+      if (a.title.toLowerCase() < b.title.toLowerCase()) {
+        return -1;
+      } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+        return 1;
+      } else {
+        return 0;
+      }
     });
+  } else {
+    return notes;
   }
 };
 
